@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import useTrafficData from "./useGetTraffic.tsx";
 
 interface MarkerData {
   lat: number;
@@ -6,6 +7,8 @@ interface MarkerData {
 }
 
 const Map = () => {
+  const {data} = useTrafficData();
+
   useEffect(() => {
     const initMap = () => {
       if (!window.naver) {
@@ -49,11 +52,12 @@ const Map = () => {
         });
       };
 
+      console.log()
+
       // 마커 데이터를 전달하여 함수 호출
       const markerData: MarkerData[] = [
-        { lat: 37.5664298, lng: 126.9927248 },
-        { lat: 37.5744584, lng: 126.9579311 }, // 독립문역
-        { lat: 37.559722, lng: 126.975278 }, // 숭례문
+        { lat: 37.202128, lng: 126.540815 },
+        { lat: 37.203036, lng: 126.547997 }, 
       ];
       addMarkers(map, markerData);
 
@@ -71,7 +75,7 @@ const Map = () => {
       script.onload = () => initMap();
       document.body.appendChild(script);
     }
-  }, []);
+  }, [data]);
 
   return (
     <div>

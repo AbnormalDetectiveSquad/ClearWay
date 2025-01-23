@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const CountdownTimer = () => {
   const [timeLeft, setTimeLeft] = useState(0); // 남은 시간 (초)
+  const [lastUpdated, setLastUpdated] = useState(""); 
 
   useEffect(() => {
     const calculateNextFiveMinuteMark = () => {
@@ -30,6 +31,8 @@ const CountdownTimer = () => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           startCountdown(); // 카운트가 0이 되면 다시 시작
+          // console.log("restart", new Date().toLocaleString())
+         setLastUpdated(new Date().toLocaleString())
           return calculateNextFiveMinuteMark(); // 초기화 후 새 카운트
         }
         return prev - 1;
@@ -49,17 +52,19 @@ const CountdownTimer = () => {
 
   return (
     <div style={{ textAlign: "center", marginTop: "20px" }}>
-      <h2>Data Fetching :</h2>
+      <h2>Next Update:</h2>
       <div
         style={{
           fontSize: "48px",
           fontWeight: "bold",
-          margin: "20px 0",
-          color: timeLeft > 0 ? "green" : "red",
+          margin: "20px 0 10px",
+          color: timeLeft > 10 ? "green" : "red",
         }}
       >
         {formatTime(timeLeft)}
       </div>
+      <div style={{fontSize: "20px"}}>Current Time : {new Date().toLocaleString()}</div>
+      {/* <div style={{fontSize: "20px"}}>Last Updated : {lastUpdated}</div> */}
     </div>
   );
 };
